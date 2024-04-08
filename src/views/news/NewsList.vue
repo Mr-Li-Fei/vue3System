@@ -1,5 +1,5 @@
 <template>
-   <div>Container</div>
+   <div>news list</div>
 </template>
 
 <script setup>
