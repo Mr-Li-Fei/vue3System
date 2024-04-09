@@ -1,18 +1,11 @@
 <template>
-  <div class="about">
+  <div>
     <h1>This is an Login page</h1>
     <button @click="addToken">ADD Token</button>
   </div>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
 </style>
 
 <script setup>

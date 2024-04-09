@@ -6,6 +6,7 @@ import NewsList from '../views/news/NewsAdd.vue';
 import NewsAdd from '../views/news/NewsAdd.vue';
 import ProductsAdd from '../views/products/ProductAdd.vue';
 import ProductsList from '../views/products/ProductList.vue';
+import NotFound from '@/views/notFound/NotFound.vue';
 
 const routes = [
   {
@@ -47,6 +48,12 @@ const routes = [
     path: 'products-list',
     name: 'productsList',
     component: ProductsList,
+  },
+  // set 404 page
+  {
+    path: '/:notFound(.*)*',
+    name: 'notFOund',
+    component: NotFound,
   }
 ]
 
