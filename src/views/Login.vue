@@ -1,7 +1,5 @@
 <template>
   <div class="login-container">
-    <!-- <h1>This is an Login page</h1>
-    <button @click="addToken">ADD Token</button> -->
     <vue-particles id="tsparticles" :particlesLoaded="particlesLoaded" :options="options" />
     <div class="formContainer">
       <h3 class="login-form-title">企业门户网站管理系统</h3>
@@ -22,7 +20,7 @@
           <el-input v-model="loginForm.password" type="password" autocomplete="off" />
         </el-form-item>
         <el-form-item>
-          <el-button class="login-btn" type="primary" @click="submitForm()">登录</el-button>
+          <el-button class="login-btn" type="primary" @click="onLogin()">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -85,13 +83,23 @@ const loginRules = reactive({
   ]
 })
 
-const submitForm = () => {}
+const onLogin = () => {
+  // 触发form 表单的验证
+  console.log(loginFormRef);
+  loginFormRef.value.validate(valid => {
+    if(valid) {
+      // 走到这里说明,输入的格式是正确的,可以进行下一步
+      console.log(loginForm);
+      // 再将loginForm 发送到后端, 前端接收到之后, 设置localstorage
+      localStorage.setItem('token', 'bruce!');
+    } else {
+      console.log('用户名或者密码不能为空!');
+    }
+  })
+}
 
 const particlesLoaded = async container => {
     console.log("Particles container loaded", container);
 };
 
-const addToken = () => {
-  localStorage.setItem('token', 'bruce!');
-};
 </script>
