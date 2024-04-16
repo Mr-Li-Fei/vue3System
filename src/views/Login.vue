@@ -65,13 +65,17 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { options } from '@/shared/config/login-background.config'
+
 const loginForm = reactive({
   username: '',
   password: '',
 });
 
 const loginFormRef = ref();
+
+const router = useRouter();
 
 // 设置出发焦点得验证
 const loginRules = reactive({
@@ -92,6 +96,7 @@ const onLogin = () => {
       console.log(loginForm);
       // 再将loginForm 发送到后端, 前端接收到之后, 设置localstorage
       localStorage.setItem('token', 'bruce!');
+      router.push('/main');
     } else {
       console.log('用户名或者密码不能为空!');
     }

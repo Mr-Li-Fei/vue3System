@@ -1,11 +1,19 @@
 <script setup>
-// import TheWelcome from '../components/TheWelcome.vue'
+import Aside from '@/components/main/Aside.vue'
+import Header from '@/components/main/Header.vue'
 </script>
 
 <template>
   <div>
-    <!-- <TheWelcome /> -->
-    this is the mian vue
-    <router-view></router-view>
+    <el-container>
+      <Aside />
+      <el-container direction="vertical">
+        <Header />
+        <el-main>
+          main
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
