@@ -14,5 +14,14 @@ export default defineConfig({
       // '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@': path.join(__dirname, 'src'),
     }
+  },
+  server: {
+    proxy: {
+      '/adminapi': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace('/^\/adminapi/', ''),
+      }
+    }
   }
 })

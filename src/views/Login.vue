@@ -67,6 +67,7 @@
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { options } from '@/shared/config/login-background.config'
+import axios from 'axios';
 
 const loginForm = reactive({
   username: '',
@@ -93,7 +94,12 @@ const onLogin = () => {
   loginFormRef.value.validate(valid => {
     if(valid) {
       // 走到这里说明,输入的格式是正确的,可以进行下一步
-      console.log(loginForm);
+
+      // 正常请求http://localhost:3000/users会报跨域的问题，　所以需要设置反向代理， 单文件组件中， 向本地/users 请求
+      //　在vite.config.js 中设置 proxy 代理， 设置所有/users请求 , 都会走对应的请url
+      axios.get('/adminapi/users').then((response) => {
+        console.log(response.data, 333);
+      });
       // 再将loginForm 发送到后端, 前端接收到之后, 设置localstorage
       localStorage.setItem('token', 'bruce!');
       router.push('/main');

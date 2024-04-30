@@ -1,8 +1,8 @@
-import Home from '../views/home/Home.vue';
+import Profile from '../views/home/Home.vue';
 import Container from '@/views/container/Container.vue';
 import UserList from '../views/user/UserList.vue';
 import UserAdd from '../views/user/UserAdd.vue';
-import NewsList from '../views/news/NewsAdd.vue';
+import NewsList from '../views/news/NewsList.vue';
 import NewsAdd from '../views/news/NewsAdd.vue';
 import ProductsAdd from '../views/products/ProductAdd.vue';
 import ProductsList from '../views/products/ProductList.vue';
@@ -10,9 +10,9 @@ import NotFound from '@/views/notFound/NotFound.vue';
 
 const routes = [
   {
-    path: 'home',
-    name: 'home',
-    component: Home,
+    path: 'profile',
+    name: 'profile',
+    component: Profile,
   },
   {
     path: 'container',
