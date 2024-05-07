@@ -13,14 +13,16 @@ export default defineConfig({
     alias: {
       // '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@': path.join(__dirname, 'src'),
+      '@server': path.join(__dirname, 'server'),
     }
   },
   server: {
+    // 配置跨域代理
     proxy: {
       '/adminapi': {
         target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace('/^\/adminapi/', ''),
+        // rewrite: (path) => path.replace('/^\/adminapi/', ''),
       }
     }
   }
