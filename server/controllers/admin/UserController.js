@@ -1,20 +1,22 @@
 const UserService = require("../../services/admin/UserService");
 
 const UserController = {
-    login: (req, res) => {
+    // 数据库查询操作是异步， 一定要加上async ... await ..., 否则讲获取不到结果
+    login: async (req, res) => {
         // TODO::
-        const result = UserService.login(req.body);
-        console.log(result.length);
+        const result = await UserService.login(req.body);
         if(result.length === 0) {
-             res.send({
-                code: -1,
-                error: '用户名或密码不匹配!',
+            // 返回401 statusCode, 
+             res.status('401').send({
+                status: -1,
+                error: 'username or password is not correct!',
              });
              return;
         }
 
         res.send({
-            ActionType: 'OK',
+            status: 1,
+            msg: 'Login successfully',
         });
     }
 }

@@ -7,7 +7,7 @@ const UserService = {
             username,
             password,
         })
-        console.log(result);
+        return result;
     }
 }
 

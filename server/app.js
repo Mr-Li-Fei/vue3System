@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// 引入执行连接数据库得文件
+require('./db.config');
+
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const UserRouter = require('./routes/admin/UserRoute');

@@ -11,13 +11,13 @@
         :rules="loginRules" 
         label-width="auto"
         label-position="left"
-        class="loginForm"
+        :class="['loginForm', 'demo-ruleForm']"
       >
         <el-form-item label="username" prop="username">
           <el-input v-model="loginForm.username" autocomplete="off" />
         </el-form-item>
         <el-form-item label="password" prop="password">
-          <el-input v-model="loginForm.password" type="password" autocomplete="off" />
+          <el-input v-model="loginForm.password" type="password" autocomplete="off" show-password/>
         </el-form-item>
         <el-form-item>
           <el-button class="login-btn" type="primary" @click="onLogin()">登录</el-button>
@@ -64,10 +64,11 @@
 </style>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { onBeforeMount, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { options } from '@/shared/config/login-background.config'
 import axios from 'axios';
+import { ElMessage } from 'element-plus'
 
 const loginForm = reactive({
   username: '',
@@ -97,12 +98,22 @@ const onLogin = () => {
 
       // 正常请求http://localhost:3000/users会报跨域的问题，　所以需要设置反向代理， 单文件组件中， 向本地/users 请求
       //　在vite.config.js 中设置 proxy 代理， 设置所有/users请求 , 都会走对应的请url
-      axios.post('/adminapi/user/login', loginForm).then((response) => {
-        console.log(response.data, 333);
-      });
-      // 再将loginForm 发送到后端, 前端接收到之后, 设置localstorage
-      localStorage.setItem('token', 'bruce!');
-      router.push('/main');
+      axios.post('/adminapi/user/login', loginForm)
+      .then((response) => {
+        const data = response.data;
+        if(data.status === 1) {
+          // 再将loginForm 发送到后端, 前端接收到之后, 设置localstorage
+          localStorage.setItem('token', 'bruce!');
+          router.push('/main');
+        }
+      }).catch((error) => {
+          // 处理 用户名或者密码不对得状况
+          ElMessage({
+            showClose: true,
+            message: error.response.data.error,
+            type: 'error',
+          })
+      }) ;
     } else {
       console.log('用户名或者密码不能为空!');
     }
@@ -112,5 +123,20 @@ const onLogin = () => {
 const particlesLoaded = async container => {
     console.log("Particles container loaded", container);
 };
+
+const keyDown = (e) => {
+  // 13 和 100 分别对应着英文键盘和数字键盘上得enter
+  if(e.keyCode == 13 || e.keyCode == 100) {
+    onLogin();
+  };
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', keyDown);
+})
+
+onBeforeMount(() => {
+  window.removeEventListener('keyDown', keyDown);
+})
 
 </script>
