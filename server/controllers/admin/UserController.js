@@ -5,6 +5,7 @@ const UserController = {
     login: async (req, res) => {
         // TODO::
         const result = await UserService.login(req.body);
+        console.log('run');
         if(result.length === 0) {
             // 返回401 statusCode, 
              res.status('401').send({
@@ -13,7 +14,6 @@ const UserController = {
              });
              return;
         }
-
         res.send({
             status: 1,
             msg: 'Login successfully',

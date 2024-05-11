@@ -91,7 +91,7 @@ const loginRules = reactive({
 
 const onLogin = () => {
   // 触发form 表单的验证
-  // console.log(loginFormRef);
+  console.log(loginFormRef.value);
   loginFormRef.value.validate(valid => {
     if(valid) {
       // 走到这里说明,输入的格式是正确的,可以进行下一步
@@ -100,17 +100,17 @@ const onLogin = () => {
       //　在vite.config.js 中设置 proxy 代理， 设置所有/users请求 , 都会走对应的请url
       axios.post('/adminapi/user/login', loginForm)
       .then((response) => {
-        const data = response.data;
-        if(data.status === 1) {
+        console.log(response, 'rspons');
+        if(response.status === 1) {
           // 再将loginForm 发送到后端, 前端接收到之后, 设置localstorage
-          localStorage.setItem('token', 'bruce!');
           router.push('/main');
         }
       }).catch((error) => {
+        console.log(error);
           // 处理 用户名或者密码不对得状况
           ElMessage({
             showClose: true,
-            message: error.response.data.error,
+            message: error,
             type: 'error',
           })
       }) ;

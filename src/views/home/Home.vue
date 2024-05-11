@@ -3,4 +3,11 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+
+onMounted(() => {
+   axios.get('/adminapi/user/list', () => {
+      console.log('ok');
+   });
+})
 </script>

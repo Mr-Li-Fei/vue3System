@@ -11,6 +11,9 @@ import { loadSlim } from "@tsparticles/slim";
 import App from './App.vue';
 import router from './router';
 
+// 引入axios 拦截器 
+import '@/utils/axios.config';
+
 const app = createApp(App)
 
 app.use(ElementPlus);
