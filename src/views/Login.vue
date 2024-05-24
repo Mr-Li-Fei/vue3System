@@ -91,7 +91,6 @@ const loginRules = reactive({
 
 const onLogin = () => {
   // 触发form 表单的验证
-  console.log(loginFormRef.value);
   loginFormRef.value.validate(valid => {
     if(valid) {
       // 走到这里说明,输入的格式是正确的,可以进行下一步
@@ -101,19 +100,19 @@ const onLogin = () => {
       axios.post('/adminapi/user/login', loginForm)
       .then((response) => {
         console.log(response, 'rspons');
-        if(response.status === 1) {
+        if(response.data.status === 1) {
           // 再将loginForm 发送到后端, 前端接收到之后, 设置localstorage
           router.push('/main');
         }
       }).catch((error) => {
-        console.log(error);
           // 处理 用户名或者密码不对得状况
+          console.log(error, 'error');
           ElMessage({
             showClose: true,
-            message: error,
+            message: error.response.data.error,
             type: 'error',
           })
-      }) ;
+      });
     } else {
       console.log('用户名或者密码不能为空!');
     }

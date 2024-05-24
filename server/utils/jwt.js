@@ -2,13 +2,13 @@ const jsonwebtoken = require('jsonwebtoken');
 
 // 使用jsonwebtoken生成和验证token两个方法
 
-const secret = {name: 'bruce'};
+const secret = '96...69';
 const jwt = {
     generate(value, expires) {
-        jsonwebtoken.sign(value, secret, { expiresIn: expires})
+        return jsonwebtoken.sign(value, secret, { expiresIn: expires})
     },
-    verify() {
-        jsonwebtoken.verify(token, secret);
+    verify(token) {
+        return jsonwebtoken.verify(token, secret);
     }
 };
 
